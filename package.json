@@ -1,6 +1,8 @@
 {
   "name": "atom-history",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "main": "./lib/atom-history",
+  "repository": "https://github.com/euvl/atom-history",
   "description": "A History of opened files for Atom",
   "engines": {
     "atom": "*"
