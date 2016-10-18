@@ -1,0 +1,10 @@
+{
+  "name": "atom-history",
+  "version": "0.0.0",
+  "description": "A History of opened files for Atom",
+  "engines": {
+    "atom": "*"
+  },
+  "dependencies": {},
+  "license": "MIT"
+}
