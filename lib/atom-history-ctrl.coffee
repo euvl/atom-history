@@ -18,21 +18,24 @@ self = module.exports =
     return if template.length > 0 then template[0] else null
 
   append: (event) ->
-    uri = event.uri
-    index = @files.indexOf(uri)
+    uri = event.uri.trim()
 
-    if index != -1
-      @files.splice index, 1
+    if uri
+      index = @files.indexOf(uri)
 
-    @files.unshift uri
+      if index != -1
+        @files.splice index, 1
 
-    if @files.length > @max_length then @files.splice(@max_length)
+      @files.unshift uri
 
-    setTimeout (->
-      localStorage[@storageKey] = JSON.stringify(@files)
-    ).bind(this), 0
+      if @files.length > @max_length
+        @files.splice(@max_length)
 
-    @update()
+      setTimeout (->
+        localStorage[@storageKey] = JSON.stringify(@files)
+      ).bind(this), 0
+
+      @update()
 
   update: () ->
     template = @getTemplate()
