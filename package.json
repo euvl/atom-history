@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "main": "./lib/atom-history",
   "repository": "https://github.com/euvl/atom-history",
-  "description": "A History of opened files for Atom",
+  "author": {
+    "name": "Yevheniy Vlasenko",
+    "email": "yev.vlasenko@gmail.com",
+    "url": "https://github.com/euvl"
+  },
+  "description": "An extension that keeps the history of recently opened files",
   "engines": {
     "atom": "*"
   },
