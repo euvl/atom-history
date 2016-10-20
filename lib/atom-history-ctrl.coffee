@@ -18,7 +18,7 @@ self = module.exports =
     return if template.length > 0 then template[0] else null
 
   append: (event) ->
-    uri = event.uri.trim()
+    uri = event.uri
 
     if uri
       index = @files.indexOf(uri)
