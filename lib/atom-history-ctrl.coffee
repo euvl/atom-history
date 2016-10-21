@@ -1,54 +1,36 @@
 #extension controller singleton
+os = require 'os'
+Collection = require './collection'
+
 self = module.exports =
-  storageKey: 'atom-history-cache'
-  max_length: 20
-  files: []
+  collection: new Collection('atom-history-cache'),
 
   init: ->
-    string = localStorage[@storageKey] or '[]'
-    @files = JSON.parse(string)
-
     atom.workspace.onDidOpen (@append.bind(this))
-    @update()
+    @render()
 
   getTemplate: () ->
     template = atom.menu.template.filter (v) ->
       v.label == 'History'
-
     return if template.length > 0 then template[0] else null
 
   append: (event) ->
     uri = event.uri
 
     if uri
-      index = @files.indexOf(uri)
+      @collection.append(uri)
+      @render()
 
-      if index != -1
-        @files.splice index, 1
-
-      @files.unshift uri
-
-      if @files.length > @max_length
-        @files.splice(@max_length)
-
-      setTimeout (->
-        localStorage[@storageKey] = JSON.stringify(@files)
-      ).bind(this), 0
-
-      @update()
-
-  update: () ->
+  render: () ->
     template = @getTemplate()
 
     if template
-      template.submenu = @files.map (v, i) ->
-        { label: v, command: 'atom-history:open.' + i }
-
+      template.submenu = @collection.files
+        .map (v, i) -> {
+          label: v.title,
+          command: 'atom-history:open.' + i
+        }
       atom.menu.update()
-
-  clear: () ->
-    @files = []
-    localStorage[@storageKey] = '[]'
 
   subscribeTo: (i) ->
     fn = {}
@@ -56,10 +38,6 @@ self = module.exports =
     return atom.commands.add('atom-workspace', fn)
 
   open: (i) ->
-    template = @getTemplate()
-
-    if template
-      submenu = template.submenu[i]
-
-      if submenu
-        atom.workspace.open(submenu.label)
+    file = @collection.files[i]
+    if file
+      atom.workspace.open(file.uri)
