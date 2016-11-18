@@ -1,3 +1,6 @@
-# atom-history package
+# atom-history
 
-Tiny extension that keeps the history of your recently opened files.
+Plugin that keeps the history of your recently opened files.
+
+![]
+(http://i.imgur.com/2ynfZ7X.png)
