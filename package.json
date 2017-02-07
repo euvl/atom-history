@@ -1,6 +1,6 @@
 {
   "name": "atom-history",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "./lib/atom-history",
   "repository": "https://github.com/euvl/atom-history",
   "author": {
